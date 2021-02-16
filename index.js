@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import {GLTFLoader} from 'GLTFLoader';
 // import {BufferGeometryUtils} from 'BufferGeometryUtils';
-import {renderer, scene, app} from 'app';
+import {renderer, scene, app, physics} from 'app';
 import easing from './easing.js';
 
 (async () => {
@@ -12,6 +12,14 @@ import easing from './easing.js';
   const {animations} = o;
   o = o.scene;
   app.object.add(o);
+  
+  let baseMesh = null;
+  o.traverse(o => {
+    if (!baseMesh && o.isMesh && /base_container/i.test(o.name)) {
+      baseMesh = o;
+    }
+  });
+  const physicsId = physics.addGeometry(baseMesh);
 
   const mixer = new THREE.AnimationMixer(o);
   const actions = animations.map(animationClip => mixer.clipAction(animationClip));
