@@ -1,0 +1,13 @@
+{
+  "name": "lightsaber",
+  "description": "Lightsaber XRPackage",
+  "xr_type": "webxr-site@0.0.1",
+  "start_url": "index.js",
+  "components": [
+    {
+      "type": "use",
+      "subtype": "swing",
+      "useAnimation": "slash"
+    }
+  ]
+}
