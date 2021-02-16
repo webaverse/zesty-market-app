@@ -5,9 +5,8 @@
   "start_url": "index.js",
   "components": [
     {
-      "type": "use",
-      "subtype": "swing",
-      "useAnimation": "slash"
+      "type": "activate",
+      "subtype": "open"
     }
   ]
 }
