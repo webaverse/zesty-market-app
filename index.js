@@ -51,4 +51,8 @@ import easing from './easing.js';
     }
   }
   renderer.setAnimationLoop(animate);
+  
+  app.addEventListener('activate', e => {
+    console.log('got activate');
+  });
 })();
