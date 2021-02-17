@@ -12,7 +12,9 @@ import easing from './easing.js';
   const {animations} = o;
   o = o.scene;
   app.object.add(o);
-  
+
+  o.updateMatrixWorld();
+
   let baseMesh = null;
   o.traverse(o => {
     if (!baseMesh && o.isMesh && /base_container/i.test(o.name)) {
