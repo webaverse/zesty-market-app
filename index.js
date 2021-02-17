@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import {GLTFLoader} from 'GLTFLoader';
 // import {BufferGeometryUtils} from 'BufferGeometryUtils';
-import {renderer, scene, app, physics} from 'app';
+import {renderer, scene, app, physics, drop} from 'app';
 import easing from './easing.js';
 
 (async () => {
@@ -31,6 +31,7 @@ import easing from './easing.js';
   } */
   const startOffset = 1;
   const endOffset = 2;
+  const dropOffset = 1.2;
   app.addEventListener('activate', e => {
     // console.log('got activate');
     
@@ -42,12 +43,17 @@ import easing from './easing.js';
 
     let timeAcc = 0;
     let lastUpdateTime = Date.now();
+    let dropped = false;
     function animate() {
       const now = Date.now();
       const timeDiff = (now - lastUpdateTime) / 1000;
       lastUpdateTime = now;
       
       timeAcc += timeDiff;
+      if (!dropped && timeAcc >= dropOffset) {
+        drop.drop(app.object);
+        dropped = true;
+      }
       if (timeAcc >= endOffset) {
         // mixer.stopAllAction();
         /* timeAcc = 0;
