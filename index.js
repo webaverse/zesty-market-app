@@ -22,37 +22,41 @@ import easing from './easing.js';
     }
   });
   const physicsId = physics.addGeometry(baseMesh);
-
+  
   const mixer = new THREE.AnimationMixer(o);
   const actions = animations.map(animationClip => mixer.clipAction(animationClip));
-  for (const action of actions) {
-    action.play();
-  }
   let maxDuration = -Infinity;
   for (const animation of animations) {
     maxDuration = Math.max(maxDuration, animation.duration);
   }
-
-  let timeAcc = 0;
-  let lastUpdateTime = Date.now();
-  function animate() {
-    const now = Date.now();
-    const timeDiff = (now - lastUpdateTime) / 1000;
-    lastUpdateTime = now;
-
-    mixer.update(timeDiff);
-    
-    timeAcc += timeDiff;
-    if (timeAcc >= maxDuration) {
-      timeAcc = 0;
-      for (const action of actions) {
-        action.time = 0;
-      }
-    }
-  }
-  renderer.setAnimationLoop(animate);
   
   app.addEventListener('activate', e => {
-    console.log('got activate');
+    // console.log('got activate');
+    
+    for (const action of actions) {
+      action.reset();
+      action.play();
+    }
+
+    let timeAcc = 0;
+    let lastUpdateTime = Date.now();
+    function animate() {
+      const now = Date.now();
+      const timeDiff = (now - lastUpdateTime) / 1000;
+      lastUpdateTime = now;
+
+      mixer.update(timeDiff);
+      
+      timeAcc += timeDiff;
+      if (timeAcc >= maxDuration) {
+        mixer.stopAllAction();
+        /* timeAcc = 0;
+        for (const action of actions) {
+          action.time = 0;
+        } */
+        renderer.setAnimationLoop(null);
+      }
+    }
+    renderer.setAnimationLoop(animate);
   });
 })();
