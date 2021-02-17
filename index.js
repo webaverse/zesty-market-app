@@ -25,17 +25,19 @@ import easing from './easing.js';
   
   const mixer = new THREE.AnimationMixer(o);
   const actions = animations.map(animationClip => mixer.clipAction(animationClip));
-  let maxDuration = -Infinity;
+  /* let maxDuration = -Infinity;
   for (const animation of animations) {
     maxDuration = Math.max(maxDuration, animation.duration);
-  }
-  
+  } */
+  const startOffset = 1;
+  const endOffset = 2;
   app.addEventListener('activate', e => {
     // console.log('got activate');
     
     for (const action of actions) {
       action.reset();
       action.play();
+      action.time = startOffset;
     }
 
     let timeAcc = 0;
@@ -44,17 +46,17 @@ import easing from './easing.js';
       const now = Date.now();
       const timeDiff = (now - lastUpdateTime) / 1000;
       lastUpdateTime = now;
-
-      mixer.update(timeDiff);
       
       timeAcc += timeDiff;
-      if (timeAcc >= maxDuration) {
-        mixer.stopAllAction();
+      if (timeAcc >= endOffset) {
+        // mixer.stopAllAction();
         /* timeAcc = 0;
         for (const action of actions) {
           action.time = 0;
         } */
         renderer.setAnimationLoop(null);
+      } else {
+        mixer.update(timeDiff);
       }
     }
     renderer.setAnimationLoop(animate);
