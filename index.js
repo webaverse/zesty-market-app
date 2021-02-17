@@ -31,7 +31,7 @@ import easing from './easing.js';
   } */
   const startOffset = 1;
   const endOffset = 2;
-  const dropOffset = 1.2;
+  const dropOffset = 1;
   app.addEventListener('activate', e => {
     // console.log('got activate');
     
