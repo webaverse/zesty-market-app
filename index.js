@@ -51,7 +51,9 @@ import easing from './easing.js';
       
       timeAcc += timeDiff;
       if (!dropped && timeAcc >= dropOffset) {
-        drop.drop(app.object);
+        drop.drop(app.object, {
+          count: 10,
+        });
         dropped = true;
       }
       if (timeAcc >= endOffset) {
