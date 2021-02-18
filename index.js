@@ -60,11 +60,11 @@ import easing from './easing.js';
         for (const action of actions) {
           action.time = 0;
         } */
-        renderer.setAnimationLoop(null);
+        app.removeEventListener('frame', animate);
       } else {
         mixer.update(timeDiff);
       }
     }
-    renderer.setAnimationLoop(animate);
+    app.addEventListener('frame', animate);
   });
 })();
