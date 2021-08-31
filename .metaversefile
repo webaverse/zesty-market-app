@@ -2,6 +2,6 @@
   "name": "chest",
   "start_url": "index.js",
   "components": {
-    "activate": true,
+    "activate": true
   }
 }
