@@ -1,14 +1,14 @@
 import * as THREE from 'three';
 import easing from './easing.js';
 import metaversefile from 'metaversefile';
-const {useFrame, useActivate, useLoaders, usePhysics} = metaversefile;
+const {useApp, useFrame, useActivate, useLoaders, usePhysics} = metaversefile;
 
 const baseUrl = import.meta.url.replace(/(\/)[^\/\\]*$/, '$1');
 
 export default () => {
   const {gltfLoader} = useLoaders();
 
-  const object = new THREE.Object3D();
+  const app = useApp();
   
   let activateCb = null;
   let frameCb = null;
@@ -27,11 +27,11 @@ export default () => {
     });
     const {animations} = o;
     o = o.scene;
-    object.add(o);
+    app.add(o);
     
     const dropObject = new THREE.Object3D();
     dropObject.position.y = 0.5;
-    object.add(dropObject);
+    app.add(dropObject);
 
     o.updateMatrixWorld();
 
@@ -91,5 +91,5 @@ export default () => {
     };
   })();
 
-  return object;
+  return app;
 };
