@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import easing from './easing.js';
 import metaversefile from 'metaversefile';
-const {useApp, useFrame, useActivate, useLoaders, usePhysics} = metaversefile;
+const {useApp, useFrame, useActivate, useLoaders, usePhysics, useCleanup} = metaversefile;
 
 const baseUrl = import.meta.url.replace(/(\/)[^\/\\]*$/, '$1');
 
