@@ -6,9 +6,8 @@ const {useApp, useFrame, useActivate, useLoaders, usePhysics} = metaversefile;
 const baseUrl = import.meta.url.replace(/(\/)[^\/\\]*$/, '$1');
 
 export default () => {
-  const {gltfLoader} = useLoaders();
-
   const app = useApp();
+  const physics = usePhysics();
   
   let activateCb = null;
   let frameCb = null;
@@ -19,10 +18,11 @@ export default () => {
     frameCb && frameCb();
   });
 
-  const physics = usePhysics();
+  let physicsIds = [];
   (async () => {
     const u = `${baseUrl}chest.glb`;
     let o = await new Promise((accept, reject) => {
+      const {gltfLoader} = useLoaders();
       gltfLoader.load(u, accept, function onprogress() {}, reject);
     });
     const {animations} = o;
@@ -42,6 +42,7 @@ export default () => {
       }
     });
     const physicsId = physics.addGeometry(baseMesh);
+    physicsIds.push(physicsId);
     
     const mixer = new THREE.AnimationMixer(o);
     const actions = animations.map(animationClip => mixer.clipAction(animationClip));
@@ -90,6 +91,12 @@ export default () => {
       frameCb = animate;
     };
   })();
+  
+  useCleanup(() => {
+    for (const physicsId of physicsIds) {
+      physics.removeGeometry(physicsId);
+    }
+  });
 
   return app;
 };
