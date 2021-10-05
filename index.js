@@ -83,7 +83,7 @@ export default () => {
                   .normalize()
                   .multiplyScalar(5)
                   .toArray(),
-                angularVelocity: new THREE.Vector3(0, 0.01, 0)
+                angularVelocity: new THREE.Vector3(0, 0.001, 0)
                   .toArray(),
               },
             },
