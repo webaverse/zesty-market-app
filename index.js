@@ -33,15 +33,15 @@ export default () => {
     dropObject.position.y = 0.5;
     app.add(dropObject);
 
-    o.updateMatrixWorld();
+    // app.updateMatrixWorld();
 
-    let baseMesh = null;
+    /* let baseMesh = null;
     o.traverse(o => {
       if (!baseMesh && o.isMesh && /base_container/i.test(o.name)) {
         baseMesh = o;
       }
-    });
-    const physicsId = physics.addGeometry(baseMesh);
+    }); */
+    const physicsId = physics.addGeometry(o);
     physicsIds.push(physicsId);
     
     const mixer = new THREE.AnimationMixer(o);
