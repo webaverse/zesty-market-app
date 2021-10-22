@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import easing from './easing.js';
+// import easing from './easing.js';
 import metaversefile from 'metaversefile';
 const {useApp, useFrame, useActivate, useLoaders, usePhysics, useWorld, useDefaultModules, useCleanup} = metaversefile;
 
