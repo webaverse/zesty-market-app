@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 // import easing from './easing.js';
 import metaversefile from 'metaversefile';
-const {useApp, useFrame, useActivate, useLoaders, usePhysics, useWorld, useDefaultModules, useCleanup} = metaversefile;
+const {useApp, useFrame, useActivate, useLoaders, usePhysics, addTrackedApp, useDefaultModules, useCleanup} = metaversefile;
 
 const baseUrl = import.meta.url.replace(/(\/)[^\/\\]*$/, '$1');
 
@@ -90,8 +90,7 @@ export default () => {
           ];
           
           // console.log('got loot components', srcUrl, components);
-          const world = useWorld();
-          const p = world.addObject(
+          const p = addTrackedApp(
             moduleUrls.silk,
             app.position.clone()
               .add(new THREE.Vector3(0, 0.7, 0)),
