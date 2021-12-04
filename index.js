@@ -98,7 +98,6 @@ export default () => {
             app.scale,
             components
           );
-          p.updateMatrixWorld();
           dropped = true;
         }
         if (timeAcc >= endOffset) {
