@@ -98,7 +98,6 @@ export default () => {
             app.scale,
             components
           );
-
           dropped = true;
         }
         if (timeAcc >= endOffset) {
@@ -110,6 +109,7 @@ export default () => {
           frameCb = null;
         } else {
           mixer.update(timeDiff);
+          mixer.getRoot().updateMatrixWorld();
         }
       }
       frameCb = animate;
