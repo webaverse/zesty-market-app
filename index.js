@@ -8,7 +8,9 @@ const baseUrl = import.meta.url.replace(/(\/)[^\/\\]*$/, '$1');
 export default () => {
   const app = useApp();
   const physics = usePhysics();
-  
+
+  app.name = 'chest';
+
   let activateCb = null;
   let frameCb = null;
   useActivate(() => {
