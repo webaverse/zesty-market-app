@@ -5,6 +5,9 @@ const {useApp, useFrame, useActivate, useLoaders, usePhysics, addTrackedApp, use
 
 const baseUrl = import.meta.url.replace(/(\/)[^\/\\]*$/, '$1');
 
+// const localVector = new THREE.Vector3();
+// const localVector2 = new THREE.Vector3();
+
 export default e => {
   const app = useApp();
   const physics = usePhysics();
@@ -30,6 +33,20 @@ export default e => {
     const {animations} = o;
     o = o.scene;
     app.add(o);
+
+    //
+
+    {
+      const u = `${baseUrl}inventory-banner.react`;
+      const o = await metaversefile.createAppAsync({
+        start_url: u,
+      });
+      o.position.y = 1.2;
+      app.add(o);
+      o.updateMatrixWorld();
+    }
+
+    //
     
     const dropObject = new THREE.Object3D();
     dropObject.position.y = 0.5;
