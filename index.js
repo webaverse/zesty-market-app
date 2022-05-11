@@ -116,7 +116,7 @@ export default e => {
       }
       frameCb = animate;
     };
-  })();
+  })());
   
   useCleanup(() => {
     for (const physicsId of physicsIds) {
