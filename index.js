@@ -5,7 +5,7 @@ const {useApp, useFrame, useActivate, useLoaders, usePhysics, addTrackedApp, use
 
 const baseUrl = import.meta.url.replace(/(\/)[^\/\\]*$/, '$1');
 
-export default () => {
+export default e => {
   const app = useApp();
   const physics = usePhysics();
 
@@ -21,7 +21,7 @@ export default () => {
   });
 
   let physicsIds = [];
-  (async () => {
+  e.waitUntil((async () => {
     const u = `${baseUrl}chest.glb`;
     let o = await new Promise((accept, reject) => {
       const {gltfLoader} = useLoaders();
