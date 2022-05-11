@@ -8,8 +8,8 @@ const InventoryBanner = () => {
       width={600}
       height={400}
   >
-      <h1>Ann's shop</h1>
-      <p>You break it you buy it!</p>
+      <h1>Classic Chest</h1>
+      <p>You break it you buy it!<br/>Contents: 2</p>
   </div>
   );
 };
