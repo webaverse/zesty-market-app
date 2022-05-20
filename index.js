@@ -89,8 +89,6 @@ export default e => {
         
         timeAcc += timeDiff;
         if (!dropped && timeAcc >= dropOffset) {
-          // const localVector = new THREE.Vector3();
-          // const localVector2 = new THREE.Vector3();
           const {moduleUrls} = useDefaultModules();          
           dropManager.createDropApp({
             start_url: moduleUrls.silk,
