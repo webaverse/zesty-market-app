@@ -1,16 +1,14 @@
 import * as THREE from 'three';
 // import easing from './easing.js';
 import metaversefile from 'metaversefile';
-const {useApp, useFrame, useActivate, useLoaders, usePhysics, addTrackedApp, useDefaultModules, useCleanup} = metaversefile;
+const {useApp, useFrame, useActivate, useLoaders, usePhysics, addTrackedApp, useDropManager, useDefaultModules, useCleanup} = metaversefile;
 
 const baseUrl = import.meta.url.replace(/(\/)[^\/\\]*$/, '$1');
-
-// const localVector = new THREE.Vector3();
-// const localVector2 = new THREE.Vector3();
 
 export default e => {
   const app = useApp();
   const physics = usePhysics();
+  const dropManager = useDropManager();
 
   app.name = 'chest';
 
@@ -48,9 +46,9 @@ export default e => {
 
     //
     
-    const dropObject = new THREE.Object3D();
+    /* const dropObject = new THREE.Object3D();
     dropObject.position.y = 0.5;
-    app.add(dropObject);
+    app.add(dropObject); */
 
     // app.updateMatrixWorld();
 
@@ -91,32 +89,16 @@ export default e => {
         
         timeAcc += timeDiff;
         if (!dropped && timeAcc >= dropOffset) {
-          const {moduleUrls} = useDefaultModules();
-          
-          const r = () => (-0.5+Math.random())*2;
-          const components = [
-            {
-              key: 'drop',
-              value: {
-                velocity: new THREE.Vector3(r(), 1+Math.random(), r())
-                  .normalize()
-                  .multiplyScalar(5)
-                  .toArray(),
-                angularVelocity: new THREE.Vector3(0, 0.001, 0)
-                  .toArray(),
-              },
-            },
-          ];
-          
-          // console.log('got loot components', srcUrl, components);
-          const p = addTrackedApp(
-            moduleUrls.silk,
-            app.position.clone()
+          // const localVector = new THREE.Vector3();
+          // const localVector2 = new THREE.Vector3();
+          const {moduleUrls} = useDefaultModules();          
+          dropManager.createDropApp({
+            start_url: moduleUrls.silk,
+            position: app.position.clone()
               .add(new THREE.Vector3(0, 0.7, 0)),
-            app.quaternion,
-            app.scale,
-            components
-          );
+              quaternion: app.quaternion,
+            scale: app.scale
+          });
           dropped = true;
         }
         if (timeAcc >= endOffset) {
