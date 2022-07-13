@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 // import easing from './easing.js';
 import metaversefile from 'metaversefile';
-const {useApp, useFrame, useActivate, useLoaders, usePhysics, addTrackedApp, useDefaultModules, useCleanup} = metaversefile;
+const {useApp, useFrame, useActivate, useLoaders, usePhysics, addTrackedApp, useDefaultModules, useCleanup, useDropManager} = metaversefile;
 
 const baseUrl = import.meta.url.replace(/(\/)[^\/\\]*$/, '$1');
 
@@ -92,14 +92,38 @@ export default e => {
           ];
           
           // console.log('got loot components', srcUrl, components);
-          const p = addTrackedApp(
-            moduleUrls.silk,
-            app.position.clone()
-              .add(new THREE.Vector3(0, 0.7, 0)),
-            app.quaternion,
-            app.scale,
-            components
-          );
+          
+          // const p = addTrackedApp(
+          //   moduleUrls.silk,
+          //   app.position.clone()
+          //     .add(new THREE.Vector3(0, 0.7, 0)),
+          //   app.quaternion,
+          //   app.scale,
+          //   components
+          // );
+          
+          const dropManager = useDropManager();
+
+          dropManager.createDropApp({
+            type: 'minor',
+            start_url: 'https://webaverse.github.io/silsword/',
+            // start_url: moduleUrls.silk,
+            components: [
+              {
+                key: 'appName',
+                value: 'Silsword'
+              },
+              {
+                key: 'appUrl',
+                value: 'https://webaverse.github.io/silsword/',
+              }
+            ],
+            position: app.position.clone()
+            .add(new THREE.Vector3(0, 0.7, 0)),
+            quaternion: app.quaternion,
+            scale: app.scale
+          });
+
           dropped = true;
         }
         if (timeAcc >= endOffset) {
