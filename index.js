@@ -1,13 +1,14 @@
 import * as THREE from 'three';
 // import easing from './easing.js';
 import metaversefile from 'metaversefile';
-const {useApp, useFrame, useActivate, useLoaders, usePhysics, addTrackedApp, useDefaultModules, useCleanup, useDropManager} = metaversefile;
+const {useApp, useFrame, useActivate, useLoaders, usePhysics, addTrackedApp, useDropManager, useDefaultModules, useCleanup} = metaversefile;
 
 const baseUrl = import.meta.url.replace(/(\/)[^\/\\]*$/, '$1');
 
 export default e => {
   const app = useApp();
   const physics = usePhysics();
+  const dropManager = useDropManager();
 
   app.name = 'chest';
 
@@ -30,10 +31,24 @@ export default e => {
     const {animations} = o;
     o = o.scene;
     app.add(o);
+
+    //
+
+    {
+      const u = `${baseUrl}inventory-banner.react`;
+      const o = await metaversefile.createAppAsync({
+        start_url: u,
+      });
+      o.position.y = 1.2;
+      app.add(o);
+      o.updateMatrixWorld();
+    }
+
+    //
     
-    const dropObject = new THREE.Object3D();
+    /* const dropObject = new THREE.Object3D();
     dropObject.position.y = 0.5;
-    app.add(dropObject);
+    app.add(dropObject); */
 
     // app.updateMatrixWorld();
 
@@ -76,8 +91,8 @@ export default e => {
         if (!dropped && timeAcc >= dropOffset) {
           const {moduleUrls} = useDefaultModules();
           
-          const r = () => (-0.5+Math.random())*2;
-          const components = [
+          // const r = () => (-0.5+Math.random())*2;
+          /* const components = [
             {
               key: 'drop',
               value: {
@@ -89,7 +104,7 @@ export default e => {
                   .toArray(),
               },
             },
-          ];
+          ]; */
           
           // console.log('got loot components', srcUrl, components);
           
@@ -106,16 +121,17 @@ export default e => {
 
           dropManager.createDropApp({
             type: 'minor',
-            start_url: 'https://webaverse.github.io/silsword/',
-            // start_url: moduleUrls.silk,
+            start_url: moduleUrls.silk,
+            // start_url: 'https://webaverse.github.io/silsword/',
             components: [
               {
                 key: 'appName',
-                value: 'Silsword'
+                value: 'Silk'
               },
               {
                 key: 'appUrl',
-                value: 'https://webaverse.github.io/silsword/',
+                value: moduleUrls.silk,
+                // value: 'https://webaverse.github.io/silsword/',
               }
             ],
             position: app.position.clone()
