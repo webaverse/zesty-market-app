@@ -21,6 +21,8 @@ export default e => {
     frameCb && frameCb();
   });
 
+  let live = true;
+  let reactApp = null;
   let physicsIds = [];
   e.waitUntil((async () => {
     const u = `${baseUrl}chest.glb`;
@@ -28,6 +30,10 @@ export default e => {
       const {gltfLoader} = useLoaders();
       gltfLoader.load(u, accept, function onprogress() {}, reject);
     });
+    if (!live) {
+      o.destroy();
+      return;
+    }
     const {animations} = o;
     o = o.scene;
     app.add(o);
@@ -36,12 +42,16 @@ export default e => {
 
     {
       const u = `${baseUrl}inventory-banner.react`;
-      const o = await metaversefile.createAppAsync({
+      reactApp = await metaversefile.createAppAsync({
         start_url: u,
       });
-      o.position.y = 1.2;
-      app.add(o);
-      o.updateMatrixWorld();
+      if (!live) {
+        reactApp.destroy();
+        return;
+      }
+      reactApp.position.y = 1.2;
+      app.add(reactApp);
+      reactApp.updateMatrixWorld();
     }
 
     //
@@ -159,6 +169,8 @@ export default e => {
   })());
   
   useCleanup(() => {
+    live = false;
+    reactApp && reactApp.destroy();
     for (const physicsId of physicsIds) {
       physics.removeGeometry(physicsId);
     }
