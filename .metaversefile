@@ -1,6 +1,6 @@
 {
-  "name": "chest",
-  "description": "chest",
+  "name": "duck",
+  "description": "duck",
   "start_url": "index.js",
   "components": {
     "activate": true
