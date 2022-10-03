@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import metaversefile from 'metaversefile';
-const {useApp, useActivate, usePhysics, useCleanup} = metaversefile;
+const {useApp, useActivate, useDomRenderer, useCleanup} = metaversefile;
 
 const baseUrl = import.meta.url.replace(/(\/)[^\/\\]*$/, '$1');
 
@@ -29,6 +29,7 @@ export default e => {
         reactApp.destroy();
         return;
       }
+
       app.add(reactApp);
       reactApp.updateMatrixWorld();
     }
