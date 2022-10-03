@@ -8,8 +8,8 @@ const Banner = () => {
       width={600}
       height={400}
     >
-      <h1>Duck</h1>
-      <p>A classic metaverse must-have.</p>
+      <h1>Zesty Ad</h1>
+      <p>Watch this space for something you're going to want to buy!</p>
     </div>
   );
 };

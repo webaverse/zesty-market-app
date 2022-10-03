@@ -1,6 +1,6 @@
 {
-  "name": "duck",
-  "description": "duck",
+  "name": "zesty-ad",
+  "description": "An advertisement for something awesome, I should go look at it!",
   "start_url": "index.js",
   "components": {
     "activate": true
