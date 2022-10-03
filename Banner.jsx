@@ -1,15 +1,12 @@
 import React from 'react';
-import styles from './Banner.module.css';
+import "./zesty-web-sdk.js";
 
 const Banner = () => {
   return (
     <div
-      className={styles.menu}
-      width={600}
-      height={400}
+      style={{ width: "512px", height: "512px", backgroundColor: "red" }}
     >
-      <h1>Zesty Ad</h1>
-      <p>Watch this space for something you're going to want to buy!</p>
+    <zesty-web space="0" creator="0x634B0510C5062CFf8009eAAc2435eB93bc4764ad" width="512px"></zesty-web>
     </div>
   );
 };
